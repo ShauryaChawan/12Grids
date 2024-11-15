@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- <script src="./script.js"></script> -->
+<script>
+  function onSubmit(event) {
+  event.preventDefault();
+
+  // Retrieve form values
+  const username = document.getElementById("name").value.trim();
+  const organization = document.getElementById("organization").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+
+  // Validation flags
+  let isValid = true;
+
+  let alertMessage = "";
+
+  // Name validation
+  if (username.length < 2 || username.length > 50) {
+    isValid = false;
+    alertMessage += "- Name must be between 2 and 50 characters.\n";
+  }
+
+  // Organization Name validation
+  if (organization.length < 2 || organization.length > 100) {
+    isValid = false;
+    alertMessage +=
+      "- Organization name must be between 2 and 100 characters.\n";
+  }
+
+  // Email validation
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    isValid = false;
+    alertMessage += "- Invalid email format.\n";
+  }
+
+  // Contact Number validation
+  const phoneRegex = /^[0-9]{10}$/;
+  if (!phoneRegex.test(phone)) {
+    isValid = false;
+    alertMessage += "- Phone number must be exactly 10 digits.\n";
+  }
+
+  // Show custom alert
+  if (isValid) {
+    showAlert("- Form submitted successfully", "success");
+  } else {
+    showAlert(alertMessage.trim(), "error");
+  }
+}
+
+function reset() {
+  // Retrieve form values
+  const username = document.getElementById("name");
+  const organization = document.getElementById("organization");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone");
+  const message = document.getElementById("message");
+
+  console.log("reset called");
+  username.value = "";
+  organization.value = "";
+  email.value = "";
+  phone.value = "";
+  message.value = "";
+}
+
+function showAlert(message, type) {
+  const alertDiv = document.getElementById("custom-alert");
+  const alertMessage = document.getElementById("alert-message");
+
+  alertMessage.textContent = message;
+  alertDiv.style.backgroundColor = type === "success" ? "#d4edda" : "#f8d7da";
+  alertDiv.style.color = type === "success" ? "#155724" : "#721c24";
+  alertDiv.style.borderColor = type === "success" ? "#c3e6cb" : "#f5c6cb";
+
+  alertDiv.style.display = "flex";
+
+  // Auto-hide the alert after 5 seconds
+  setTimeout(() => {
+    if (type === "success") {
+      reset();
+    }
+    alertDiv.style.display = "none";
+  }, 5000);
+}
+
+function closeAlert() {
+  const alertDiv = document.getElementById("custom-alert");
+  alertDiv.style.display = "none";
+}
+
+</script>
+  </head>
+  <body>
+    <section class="contact-us-page">
+      <header class="logo-container">
+        <img src="../icons/logo1.png" alt="Company Logo" class="logo" />
+      </header>
+
+      <main class="contact-form-container">
+        <div class="contact-form-content">
+          <div class="contact-form-text">
+            <h1 class="contact-form-title">Got any questions?</h1>
+            <p class="contact-form-subtitle">
+              Let's discuss it over a cup of coffee.
+            </p>
+          </div>
+          <form class="contact-form" onsubmit="onSubmit(event)">
+            <div class="form-field">
+              <label for="name" class="visually-hidden">Name</label>
+              <input
+                type="text"
+                id="name"
+                class="form-input"
+                placeholder="Name"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="organization" class="visually-hidden"
+                >Organisation Name</label
+              >
+              <input
+                type="text"
+                id="organization"
+                class="form-input"
+                placeholder="Organisation Name"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="email" class="visually-hidden">Email ID</label>
+              <input
+                type="email"
+                id="email"
+                class="form-input"
+                placeholder="Email ID"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="phone" class="visually-hidden">Contact Number</label>
+              <input
+                type="tel"
+                id="phone"
+                class="form-input"
+                placeholder="Contact Number: +91-7710814801"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="message" class="visually-hidden">Message</label>
+              <textarea
+                id="message"
+                class="form-input form-textarea"
+                placeholder="Message"
+                rows="5"
+                required
+                maxlength="200"
+              ></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="form-submit-btn">
+                Submit
+                <img
+                  src="../icons/arrow-icon.png"
+                  alt=""
+                  class="form-submit-arrow-icon"
+                />
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <div id="custom-alert" class="custom-alert" style="display: none">
+        <span id="alert-message">Alert message goes here</span>
+        <button onclick="closeAlert()">×</button>
+      </div>
+
+      <section class="contact-info">
+        <div class="contact-info-container">
+          <img
+            src="../imgs/mapsicle-map.png"
+            alt="Contact Background"
+            class="contact-info-bg"
+          />
+          <div class="contact-info-content">
+            <h2 class="contact-info-title">OnestopNDT</h2>
+            <p class="contact-info-address">
+              PAP/R/406 Rabale MIDC Near Dol Electric Company Rabale MIDC, Navi
+              Mumbai - 400701.
+            </p>
+            <p class="contact-info-phone">Landline - 022 4131 0099</p>
+            <a
+              rel="noopener"
+              href="https://maps.app.goo.gl/buYt2fU4TdjB6DPK8"
+              target="_blank"
+              class="map-link"
+            >
+              <img
+                src="../icons/google-map-icon.png"
+                alt="Map Icon"
+                class="map-icon"
+              />
+              <span>Google map Link</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="services-section">
+        <div class="services-container">
+          <div class="services-grid">
+            <div class="service-icon-container service-item">
+              <img
+                src="../imgs/rectangle-1.png"
+                alt="Companies Icon"
+                class="service-icon"
+              />
+              <span class="service-name">Companies</span>
+            </div>
+            <div class="service-icon-container service-item">
+              <img
+                src="../imgs/rectangle-2.png"
+                alt="Jobs Icon"
+                class="service-icon"
+              />
+              <span class="service-name">Jobs</span>
+            </div>
+            <div class="service-icon-container service-item">
+              <img
+                src="../imgs/rectangle-3.png"
+                alt="Articles Icon"
+                class="service-icon"
+              />
+              <span class="service-name">Articles</span>
+            </div>
+            <div class="service-icon-container service-item">
+              <img
+                src="../imgs/rectangle-4.png"
+                alt="Webinar Icon"
+                class="service-icon"
+              />
+              <span class="service-name">Webinar</span>
+            </div>
+            <div class="service-icon-container service-item">
+              <img
+                src="../imgs/rectangle-5.png"
+                alt="Forums Icon"
+                class="service-icon"
+              />
+              <span class="service-name">Forums</span>
+            </div>
+            <div class="service-icon-container service-item">
+              <img
+                src="../imgs/rectangle-6.png"
+                alt="Application Notes Icon"
+                class="service-icon"
+              />
+              <span class="service-name">Application Notes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-content">
+          <img src="../icons/logo2.png" alt="Footer Logo" class="footer-logo" />
+          <div class="footer-info">
+            <hr class="footer-divider" />
+            <div class="footer-text">
+              <h2 class="footer-title">What is One Stop NDT?</h2>
+              <p class="footer-description">
+                A informative dais for NDT enthusiasts, One Stop NDT has
+                everything related to Non-Destructive Testing in one place.
+                Backed by professionals with unprecedented experience & presence
+                of more than 20 years in NDT Market, One Stop NDT gives you a
+                chance to freely communicate and interact with experts. NDT
+                equipment manufacturers, service providers, plant operators,
+                distributors, NDT professionals can check out the new
+                developments, products and services available in the global
+                market and have direct access for interactions with like-minded
+                professionals. One Stop NDT users have access to NDT forums,
+                jobs, blogs, events, courses, webinars and much more!
+              </p>
+            </div>
+            <hr class="footer-divider" />
+            <div class="footer-2nd">
+              <div class="footer-2nd-text">Support</div>
+              <div class="footer-2nd-logos">
+                <img
+                  src="../icons/apple-store-icon.png"
+                  alt="apple-store-icon"
+                  class="footer-2nd-logo"
+                />
+                <img
+                  src="../icons/android-store-icon.png"
+                  alt="android-store-icon"
+                  class="footer-2nd-logo"
+                />
+              </div>
+            </div>
+            <hr class="footer-divider" />
+            <div class="footer-3rd">
+              <div class="footer-3rd-text">
+                <p>Privacy policy</p>
+                <img
+                  src="../icons/dot.png"
+                  alt=""
+                  class="footer-3rd-logo-dot"
+                />
+                <p>Terms and conditions</p>
+                <img
+                  src="../icons/dot.png"
+                  alt=""
+                  class="footer-3rd-logo-dot"
+                />
+                <p>Copyright &#169; 2022 . OSNDT All Rights Reserved</p>
+              </div>
+              <div class="footer-3rd-logos">
+                <img
+                  src="../icons/linkedin-icon.png"
+                  alt=""
+                  class="footer-3rd-logo"
+                />
+                <img
+                  src="../icons/twitter-icon.png"
+                  alt=""
+                  class="footer-3rd-logo"
+                />
+                <img
+                  src="../icons/instagram-icon.png"
+                  alt=""
+                  class="footer-3rd-logo"
+                />
+                <img
+                  src="../icons/youtube-icon.png"
+                  alt=""
+                  class="footer-3rd-logo"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </body>
+</html>
